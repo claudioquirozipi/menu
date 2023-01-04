@@ -1,0 +1,120 @@
+{
+  "image": [
+    {
+      "id": "1",
+      "url": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/a7a1dc0004804778ac64cb26b8217c5c.jpeg",
+      "title": "Hamburguesa",
+      "alt": "Hamburguesa"
+    },
+    {
+      "id": "2",
+      "url": "https://barrionikkei.com/wp-content/uploads/2021/11/sku_1210.jpg",
+      "title": "Pepsi",
+      "alt": "Pepsi"
+    },
+    {
+      "id": "3",
+      "url": "https://www.periodistadigital.com/wp-content/uploads/2020/02/pizza-americana.jpg?width=1200&enable=upscale",
+      "title": "Pizza",
+      "alt": "Pizza"
+    },
+    {
+      "id": "4",
+      "url": "https://www.peru.travel/Contenido/Uploads/salchipapa-interior-2_637612665363329300.jpg",
+      "title": "Salchipapa",
+      "alt": "Salchipapa"
+    }
+  ],
+  "category": [
+    {
+      "id": "1",
+      "name": "Bebidas"
+    },
+    {
+      "id": "2",
+      "name": "Hamburguesas"
+    },
+    {
+      "id": "3",
+      "name": "Pizzas"
+    },
+    {
+      "id": "4",
+      "name": "Salchi Papas"
+    }
+  ],
+  "menu": [
+    {
+      "id": "1",
+      "name": "Hamburguesa con Queso",
+      "image": [
+        {
+          "id": "1",
+          "url": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/a7a1dc0004804778ac64cb26b8217c5c.jpeg",
+          "title": "Hamburguesa",
+          "alt": "Hamburguesa"
+        }
+      ],
+      "category": [
+        {
+          "id": "2",
+          "name": "Hamburguesas"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Salchi Mix",
+      "image": [
+        {
+          "id": "4",
+          "url": "https://www.peru.travel/Contenido/Uploads/salchipapa-interior-2_637612665363329300.jpg",
+          "title": "Salchipapa",
+          "alt": "Salchipapa"
+        }
+      ],
+      "category": [
+        {
+          "id": "4",
+          "name": "Salchi Papas"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Pepsi 500ml",
+      "image": [
+        {
+          "id": "2",
+          "url": "https://barrionikkei.com/wp-content/uploads/2021/11/sku_1210.jpg",
+          "title": "Pepsi",
+          "alt": "Pepsi"
+        }
+      ],
+      "category": [
+        {
+          "id": "1",
+          "name": "Bebidas"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Pizza Americana",
+      "image": [
+        {
+          "id": "3",
+          "url": "https://www.periodistadigital.com/wp-content/uploads/2020/02/pizza-americana.jpg?width=1200&enable=upscale",
+          "title": "Pizza",
+          "alt": "Pizza"
+        }
+      ],
+      "category": [
+        {
+          "id": "3",
+          "name": "Pizzas"
+        }
+      ]
+    }
+  ]
+}

@@ -2,10 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
-
+import { Button } from "primereact/button";
+import { useMenuList } from "../src/menu/hooks/useMenuList";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  // const { menus, menuError, menuIsLoading } = useMenuList();
   return (
     <>
       <Head>
@@ -15,6 +17,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>lista de comidas</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_HOLA}</h1>
+      <Button>Hola</Button>
+      {/* {menus?.map((menu) => (
+        <p key={menu.id}>{menu.name}</p>
+      ))} */}
     </>
   );
 }
