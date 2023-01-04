@@ -18,6 +18,7 @@ export default function Home() {
       </Head>
       <h1>lista de comidas</h1>
       <h1>hola .... {process.env.NEXT_PUBLIC_HOLA}</h1>
+      <h3>aquí</h3>
       <Button>Hola</Button>
       {/* {menus?.map((menu) => (
         <p key={menu.id}>{menu.name}</p>
