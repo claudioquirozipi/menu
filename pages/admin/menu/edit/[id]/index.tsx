@@ -1,7 +1,9 @@
+import Layout from "../../../../../src/shared/components/layout";
+
 export default function EditarMenu() {
   return (
-    <div>
+    <Layout>
       <h1>Editar menu</h1>
-    </div>
+    </Layout>
   );
 }

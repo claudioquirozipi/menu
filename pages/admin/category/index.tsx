@@ -1,7 +1,9 @@
+import Layout from "../../../src/shared/components/layout";
+
 export default function Category() {
   return (
-    <div>
+    <Layout>
       <h1>Category</h1>
-    </div>
+    </Layout>
   );
 }
