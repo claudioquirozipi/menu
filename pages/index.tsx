@@ -64,7 +64,7 @@ export default function Home() {
       <h3>aquí</h3>
 
       {menu.map((m: any) => (
-        <div>
+        <div key={m.id}>
           <h1>{m.name}</h1>
         </div>
       ))}
