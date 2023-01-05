@@ -18,6 +18,9 @@ export default function Home() {
       </Head>
       <h1>lista de comidas</h1>
       <h1>hola .... {process.env.NEXT_PUBLIC_REACT_APP_SUPABASE_URL}</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_REACT_APP_SUPABASE_ANON_KEY}</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_REDIRECT}</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_REACT_APP_URL_API}</h1>
       <h3>aquí</h3>
       <Button>Hola</Button>
       {/* {menus?.map((menu) => (
