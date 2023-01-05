@@ -15,17 +15,30 @@ import {
 import { QueryClientConfig } from "@tanstack/query-core";
 // import { config } from "lib/react-query-config";
 
-export default function App({ Component, pageProps }: AppProps) {
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
+
+export default function App({
+  Component,
+  pageProps,
+}: AppProps<{
+  initialSession: Session;
+}>) {
   // const queryClient = new QueryClient();
   // const [queryClient] = useState(() => new QueryClient(config));
-  const config: QueryClientConfig = {};
-  const [queryClient] = useState(() => new QueryClient(config));
-
+  // const config: QueryClientConfig = {};
+  // const [queryClient] = useState(() => new QueryClient(config));
+  const [supabase] = useState(() => createBrowserSupabaseClient());
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
-      </Hydrate>
-    </QueryClientProvider>
+    <SessionContextProvider
+      supabaseClient={supabase}
+      initialSession={pageProps.initialSession}
+    >
+      {/* <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}> */}
+      <Component {...pageProps} />
+      {/* </Hydrate>
+    </QueryClientProvider> */}
+    </SessionContextProvider>
   );
 }

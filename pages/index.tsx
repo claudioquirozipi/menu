@@ -4,10 +4,34 @@ import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 import { Button } from "primereact/button";
 import { useMenuList } from "../src/menu/hooks/useMenuList";
+import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
+import {
+  useSession,
+  useSupabaseClient,
+  useUser,
+} from "@supabase/auth-helpers-react";
+import Account from "../src/components/account";
+import { useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const session = useSession();
+  const supabase = useSupabaseClient();
+  const user = useUser();
+
+  const [menu, setMenu] = useState<any>([]);
   // const { menus, menuError, menuIsLoading } = useMenuList();
+  console.log("session", session);
+  // console.log("user", user);
+  console.log("menu", menu);
+
+  const initialize = async () => {
+    const { data, error } = await supabase.from("menu").select("*");
+    setMenu(data);
+  };
+  useEffect(() => {
+    initialize();
+  }, []);
   return (
     <>
       <Head>
@@ -16,12 +40,33 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <div className="container" style={{ padding: "50px 0 100px 0" }}>
+        {!session ? (
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ theme: ThemeSupa }}
+            theme="dark"
+          />
+        ) : (
+          <>
+            <p>Account page will go here. {user?.email}</p>
+            {/* <Account session={session} /> */}
+          </>
+        )}
+      </div>
       <h1>lista de comidas</h1>
-      <h1>hola .... {process.env.NEXT_PUBLIC_REACT_APP_SUPABASE_URL}</h1>
-      <h1>hola .... {process.env.NEXT_PUBLIC_REACT_APP_SUPABASE_ANON_KEY}</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_SUPABASE_URL}</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}</h1>
       <h1>hola .... {process.env.NEXT_PUBLIC_REDIRECT}</h1>
-      <h1>hola .... {process.env.NEXT_PUBLIC_REACT_APP_URL_API}</h1>
+      <h1>hola .... {process.env.NEXT_PUBLIC_URL_API}</h1>
       <h3>aquí</h3>
+
+      {menu.map((m: any) => (
+        <div>
+          <h1>{m.name}</h1>
+        </div>
+      ))}
       <Button>Hola</Button>
       {/* {menus?.map((menu) => (
         <p key={menu.id}>{menu.name}</p>
