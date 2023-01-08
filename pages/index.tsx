@@ -27,22 +27,12 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <h1 style={{ color: "yellow" }}>hola</h1>
-
-        <div className="container" style={{ padding: "50px 0 100px 0" }}></div>
-        <h1>lista de comidas</h1>
-        <h1>hola .... {process.env.NEXT_PUBLIC_SUPABASE_URL}</h1>
-        <h1>hola .... {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}</h1>
-        <h1>hola .... {process.env.NEXT_PUBLIC_REDIRECT}</h1>
-        <h1>hola .... {process.env.NEXT_PUBLIC_URL_API}</h1>
-        <h3>aquí</h3>
 
         {menu.map((m: any) => (
           <div key={m.id}>
             <h1>{m.name}</h1>
           </div>
         ))}
-        <Button>Hola</Button>
       </Layout>
     </>
   );

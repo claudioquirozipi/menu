@@ -18,22 +18,22 @@ export default function Layout(props: LayoutProps) {
 
   useEffect(() => {
     if (mode === "auth" && session) router.push("/admin/menu");
-    if (mode === "admin" && !session) router.push("/auth/login");
+    // if (mode === "admin" && !session) router.push("/auth/login");
   }, [session]);
 
   if (mode === "lessAuth") return <> {children}</>;
   if (mode === "auth")
     return <div className={styles.login_container}> {children}</div>;
   return (
-    <div>
+    <>
       <Menubar
         model={items}
         end={
           <Button label="Logout" icon="pi pi-power-off" onClick={handleClick} />
         }
       />
-      {children}
-    </div>
+      <div className={styles.admin_container}>{children}</div>
+    </>
   );
 
   function handleClick() {

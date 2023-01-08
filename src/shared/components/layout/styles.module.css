@@ -4,3 +4,6 @@
   align-items: center;
   height: 100vh;
 }
+.admin_container {
+  padding: 2rem 5% 1rem;
+}
