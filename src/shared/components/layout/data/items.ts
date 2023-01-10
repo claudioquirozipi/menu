@@ -19,7 +19,11 @@ export const items = [
     ],
   },
   {
-    label: "category",
+    label: "Categorías",
     command: () => Router.push("/admin/category"),
+  },
+  {
+    label: "Imagenes",
+    command: () => Router.push("/admin/images"),
   },
 ];
