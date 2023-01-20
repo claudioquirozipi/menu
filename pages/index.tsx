@@ -28,6 +28,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
+        <h1>hola mundo </h1>
         {menu.map((m: any) => (
           <div key={m.id}>
             <h1>{m.name}</h1>
