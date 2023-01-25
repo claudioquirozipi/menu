@@ -1,18 +1,26 @@
 import Layout from "../../../src/shared/components/layout";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Button } from "primereact/button";
+import { Toolbar } from "primereact/toolbar";
+import { useRouter } from "next/router";
+import { Menu } from "../../../src/menu/interfaces/menu";
 
-export default function Menu() {
+export default function MenuPage() {
   const supabase = useSupabaseClient();
-  const [menu, setMenu] = useState<any>([]);
+  const toast: any = useRef(null);
+  const router = useRouter();
+  const [menu, setMenu] = useState<Menu[]>([]);
 
   const initialize = async () => {
     const { data, error } = await supabase.from("menu").select("*");
-    setMenu(data);
+    if (data) setMenu(data);
   };
   useEffect(() => {
     initialize();
@@ -20,7 +28,16 @@ export default function Menu() {
 
   return (
     <Layout>
-      <h1>Menu</h1>
+      <Toolbar
+        className="mb-4"
+        left={<p>Categorías</p>}
+        right={
+          <Button
+            label="Crear"
+            onClick={() => router.push("/admin/menu/create")}
+          />
+        }
+      />
 
       <DataTable value={menu}>
         <Column header="Nombre" field="name" />
@@ -33,45 +50,71 @@ export default function Menu() {
             <img
               style={{ width: "150px" }}
               src={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/public/menus/${rowData?.images[0]}`}
-              // onError={(e) =>
-              //   (e.target.src =
-              //     "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-              // }
               alt={rowData.image}
               className="product-image"
             />
           )}
         ></Column>
         <Column
-          body={(rowData) => <Button label="Crear" onClick={() => {}} />}
+          body={(rowData) => (
+            <Button
+              label="Editar"
+              onClick={() => router.push(`/admin/menu/edit/${rowData.id}`)}
+            />
+          )}
           header="Editar"
         ></Column>
         <Column
-          body={(rowData) => <Button label="Crear" onClick={() => {}} />}
+          body={(rowData) => (
+            <Button label="Borrar" onClick={() => deleteMenu(rowData.id)} />
+          )}
           header="Borrar"
         ></Column>
       </DataTable>
-
-      {menu.map((m: any) => (
-        <div key={m.id}>
-          <h1>{m.name}</h1>
-        </div>
-      ))}
+      <Toast ref={toast} />
+      <ConfirmDialog />
     </Layout>
   );
+  async function deleteMenu(id: string) {
+    console.log("delete", id);
+    const confirm = () => {
+      confirmDialog({
+        message: "Are you sure you want to proceed?",
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        accept: async () => {
+          const { data, error } = await supabase
+            .from("menu")
+            .delete()
+            .eq("id", id);
+          if (!error) {
+            const newMenu = menu.filter((m) => m.id !== id);
+            setMenu(newMenu);
+            toast.current.show({
+              severity: "success",
+              summary: "Rejected",
+              detail: "You have rejected",
+              life: 3000,
+            });
+          } else {
+            toast.current.show({
+              severity: "error",
+              summary: "Rejected",
+              detail: "You have rejected",
+              life: 3000,
+            });
+          }
+        },
+        reject: () => {
+          toast.current.show({
+            severity: "warn",
+            summary: "Rejected",
+            detail: "You have rejected",
+            life: 3000,
+          });
+        },
+      });
+    };
+    confirm();
+  }
 }
-
-const imageBodyTemplate = (rowData: any) => {
-  console.log("data", rowData);
-  return (
-    <img
-      src={`images/product/${rowData.image}`}
-      // onError={(e) =>
-      //   (e.target.src =
-      //     "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-      // }
-      alt={rowData.image}
-      className="product-image"
-    />
-  );
-};
