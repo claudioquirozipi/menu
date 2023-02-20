@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+  padding-top: 12px;
+}
+.image {
+  width: 100px;
+}
+.badge {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  cursor: pointer;
+}

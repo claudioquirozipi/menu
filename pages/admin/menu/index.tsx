@@ -1,15 +1,16 @@
-import Layout from "../../../src/shared/components/layout";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
+import { DataTable } from "primereact/datatable";
+import { Toolbar } from "primereact/toolbar";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
 
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { Button } from "primereact/button";
-import { Toolbar } from "primereact/toolbar";
-import { useRouter } from "next/router";
+import Layout from "../../../src/shared/components/layout";
 import { Menu } from "../../../src/menu/interfaces/menu";
 
 export default function MenuPage() {
@@ -47,11 +48,16 @@ export default function MenuPage() {
           field="image"
           header="Image"
           body={(rowData) => (
-            <img
-              style={{ width: "150px" }}
-              src={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/public/menus/${rowData?.images[0]}`}
-              alt={rowData.image}
-              className="product-image"
+            // <img
+            //   style={{ width: "150px" }}
+            //   src={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/${rowData?.images[0]}`}
+            //   alt={rowData.image}
+            //   className="product-image"
+            // />
+            <Avatar
+              image={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/${rowData?.images[0]}`}
+              size="large"
+              shape="circle"
             />
           )}
         ></Column>
