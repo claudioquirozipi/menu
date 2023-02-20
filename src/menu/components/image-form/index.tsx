@@ -71,8 +71,13 @@ export default function ImageForm(props: ImageFormProps) {
 
       <div>
         {/* <input type="text" value={title} onChange={handleChange} /> */}
-        {images.map((img) => (
-          <img src={`${imgUrl}/${img}`} alt="img" style={{ width: "50px" }} />
+        {images.map((img, i: number) => (
+          <img
+            key={i}
+            src={`${imgUrl}/${img}`}
+            alt="img"
+            style={{ width: "50px" }}
+          />
         ))}
         <button onClick={addImage}>Add image</button>
 
