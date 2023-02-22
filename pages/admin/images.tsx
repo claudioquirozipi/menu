@@ -9,7 +9,6 @@ export default function Images() {
 
   const getImages = async () => {
     const { data, error } = await supabase.storage.from("menus").list();
-    console.log("data", data);
     if (data?.length) setImagenes(data);
   };
 

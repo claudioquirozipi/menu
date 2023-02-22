@@ -12,24 +12,12 @@ export default function ImageForm(props: ImageFormProps) {
   const { images = [], setValue } = props;
   const [image, setImage] = useState<any>([]);
   const supabase = useSupabaseClient();
-  const [title, setTitle] = useState("");
   const [visible, setVisible] = useState(false);
-  // https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/public/menus/0212226.jpg
+  const [imgSelected, setImgSelected] = useState("");
   const imgUrl = "https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object";
-  const addImage = () => {
-    const image: string = "public/menus/0212226.jpg";
-    console.log("hola");
-    const newImage = [...images, image];
-    setValue("images", newImage);
-  };
-  console.log("imagen", images);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value);
 
   const getImages = async () => {
     const { data, error } = await supabase.storage.from("menus").list();
-    console.log("data", data);
     if (data?.length) setImage(data);
   };
 
@@ -49,6 +37,12 @@ export default function ImageForm(props: ImageFormProps) {
     }
   }
 
+  function addToArrayImage(image: string) {
+    const newImage = [...images, "public/menus/" + imgSelected];
+    setValue("images", newImage);
+    setVisible(false);
+  }
+
   async function deleteImage(imageName: string) {
     const { error } = await supabase.storage.from("menus").remove([imageName]);
 
@@ -63,14 +57,11 @@ export default function ImageForm(props: ImageFormProps) {
     getImages();
   }, []);
 
-  console.log("hola", image);
-
   return (
     <div>
-      <h1>image form a</h1>
+      <h1>image form</h1>
 
       <div>
-        {/* <input type="text" value={title} onChange={handleChange} /> */}
         {images.map((img, i: number) => (
           <img
             key={i}
@@ -79,7 +70,6 @@ export default function ImageForm(props: ImageFormProps) {
             style={{ width: "50px" }}
           />
         ))}
-        <button onClick={addImage}>Add image</button>
 
         <Button
           label="Show"
@@ -91,7 +81,12 @@ export default function ImageForm(props: ImageFormProps) {
           visible={visible}
           style={{ width: "50vw" }}
           onHide={() => setVisible(false)}
-          footer={() => <Footer uploadImage={uploadImage} />}
+          footer={() => (
+            <Footer
+              uploadImage={uploadImage}
+              addToArrayImage={addToArrayImage}
+            />
+          )}
         >
           <div className={styles.imagesContainer}>
             {image.map((img: any) => (
@@ -99,6 +94,8 @@ export default function ImageForm(props: ImageFormProps) {
                 key={img.id}
                 img={img}
                 deleteImage={deleteImage}
+                imgSelected={imgSelected}
+                setImgSelected={setImgSelected}
               />
             ))}
           </div>

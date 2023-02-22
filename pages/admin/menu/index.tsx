@@ -48,12 +48,6 @@ export default function MenuPage() {
           field="image"
           header="Image"
           body={(rowData) => (
-            // <img
-            //   style={{ width: "150px" }}
-            //   src={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/${rowData?.images[0]}`}
-            //   alt={rowData.image}
-            //   className="product-image"
-            // />
             <Avatar
               image={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/${rowData?.images[0]}`}
               size="large"
