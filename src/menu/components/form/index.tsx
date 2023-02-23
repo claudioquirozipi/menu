@@ -1,18 +1,20 @@
-import { Button } from "primereact/button";
+import { useForm, Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
 
-import { useForm, Controller } from "react-hook-form";
-import { InputText } from "primereact/inputtext";
-import { Menu, MenuType } from "../../interfaces/menu";
-import { classNames } from "primereact/utils";
-import { Dropdown } from "primereact/dropdown";
-
-import { Category } from "../../../category/interfaces/category";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { SelectItemOptionsType } from "primereact/selectitem";
+
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import { classNames } from "primereact/utils";
+import { Button } from "primereact/button";
+
 import { CreateMenuDTO } from "../../interfaces/create-menu-dto";
+import { Category } from "../../../category/interfaces/category";
+import { SelectItemOptionsType } from "primereact/selectitem";
+import { Menu, MenuType } from "../../interfaces/menu";
 
 import styles from "./styles.module.css";
+import { FormProps } from "./interface";
 import ImageForm from "../image-form";
 
 const defaultValues: CreateMenuDTO = {
@@ -22,7 +24,8 @@ const defaultValues: CreateMenuDTO = {
   category: [],
 };
 
-export default function Form() {
+export default function Form(props: FormProps) {
+  const { initialValue } = props;
   const [categories, setCategories] = useState<SelectItemOptionsType[]>([]);
   const supabase = useSupabaseClient();
   const { control, formState, handleSubmit, reset, setValue, watch } = useForm({
