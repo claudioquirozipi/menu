@@ -6,6 +6,9 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Button } from "primereact/button";
 
 import Layout from "../src/shared/components/layout";
+import { Menu } from "../src/menu/interfaces/menu";
+import { Card } from "../src/menu/components/card";
+import { ItemContainer } from "../src/menu/components/itemContainer";
 
 export default function Home() {
   const supabase = useSupabaseClient();
@@ -28,12 +31,21 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <h1>hola mundo </h1>
-        {menu?.map((m: any) => (
-          <div key={m.id}>
-            <h1>{m.name}</h1>
-          </div>
-        ))}
+        <ItemContainer category="Pizzas">
+          {menu?.map((m: Menu) => (
+            <Card key={m.id} menu={m} />
+          ))}
+        </ItemContainer>
+        <ItemContainer category="Hamburguesas">
+          {menu?.map((m: Menu) => (
+            <Card key={m.id} menu={m} />
+          ))}
+        </ItemContainer>
+        <ItemContainer category="Bebidas">
+          {menu?.map((m: Menu) => (
+            <Card key={m.id} menu={m} />
+          ))}
+        </ItemContainer>
       </Layout>
     </>
   );

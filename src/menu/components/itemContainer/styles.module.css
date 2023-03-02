@@ -1,0 +1,14 @@
+.container {
+  margin-bottom: 1rem;
+}
+.category {
+  padding: 1rem 0;
+  margin: 0;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid yellow;
+}
+.children_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
