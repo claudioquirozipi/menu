@@ -12,12 +12,36 @@ import { ItemContainer } from "../src/menu/components/itemContainer";
 
 export default function Home() {
   const supabase = useSupabaseClient();
-  const [menu, setMenu] = useState<any>([]);
+  const [menuFiltered, setMenuFiltered] = useState<any>([]);
 
   const initialize = async () => {
     const { data, error } = await supabase.from("menu").select("*");
-    setMenu(data);
+    const { data: category, error: errorCategory } = await supabase
+      .from("category")
+      .select("*");
+    let dataFiltered: any = {};
+
+    data?.forEach((d) => {
+      const cate = category?.find((c) => c.id === d.category).name;
+      if (cate) {
+        if (!dataFiltered[cate]) {
+          dataFiltered[cate] = [];
+        }
+        dataFiltered[cate].push(d);
+      }
+    });
+    const arrayFiltered = [];
+    for (const property in dataFiltered) {
+      arrayFiltered.push({
+        id: dataFiltered[property][0].id,
+        category: property,
+        menu: dataFiltered[property],
+      });
+    }
+    console.log("arrayFiltered", arrayFiltered);
+    setMenuFiltered(arrayFiltered);
   };
+
   useEffect(() => {
     initialize();
   }, []);
@@ -31,21 +55,13 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <ItemContainer category="Pizzas">
-          {menu?.map((m: Menu) => (
-            <Card key={m.id} menu={m} />
-          ))}
-        </ItemContainer>
-        <ItemContainer category="Hamburguesas">
-          {menu?.map((m: Menu) => (
-            <Card key={m.id} menu={m} />
-          ))}
-        </ItemContainer>
-        <ItemContainer category="Bebidas">
-          {menu?.map((m: Menu) => (
-            <Card key={m.id} menu={m} />
-          ))}
-        </ItemContainer>
+        {menuFiltered?.map((filtered: any) => (
+          <ItemContainer category={filtered.category}>
+            {filtered.menu.map((m: Menu) => (
+              <Card key={m.id} menu={m} />
+            ))}
+          </ItemContainer>
+        ))}
       </Layout>
     </>
   );

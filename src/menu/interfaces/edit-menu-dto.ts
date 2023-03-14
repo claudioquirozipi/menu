@@ -1,6 +1,7 @@
 import { Category } from "../../category/interfaces/category";
 
-export interface CreateMenuDTO {
+export interface EditMenuDTO {
+  id: string;
   name: string;
   price: number;
   images: string[];

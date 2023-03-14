@@ -25,11 +25,11 @@ const defaultValues: CreateMenuDTO = {
 };
 
 export default function Form(props: FormProps) {
-  const { initialValue } = props;
+  const { initialValue, createOrEditOnSubmit } = props;
   const [categories, setCategories] = useState<SelectItemOptionsType[]>([]);
   const supabase = useSupabaseClient();
   const { control, formState, handleSubmit, reset, setValue, watch } = useForm({
-    defaultValues,
+    defaultValues: initialValue || defaultValues,
   });
   const { errors } = formState;
   const [formData, setFormData] = useState({});
@@ -45,9 +45,9 @@ export default function Form(props: FormProps) {
   const onSubmit = async (formValue: any) => {
     console.log("hola");
     console.log("formValue", formValue);
+    createOrEditOnSubmit(formValue);
     // setFormData(data);
     // setShowMessage(true);
-    const { data, error } = await supabase.from("menu").insert([formValue]);
 
     reset();
   };
@@ -85,7 +85,7 @@ export default function Form(props: FormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
       <ImageForm setValue={setValue} images={images} />
-      <div className="p-fluid">
+      <div className={`p-fluid ${styles.form}`}>
         <div className="field">
           <span className="p-float-label">
             <Controller
