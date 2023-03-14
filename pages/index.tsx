@@ -55,8 +55,8 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        {menuFiltered?.map((filtered: any) => (
-          <ItemContainer category={filtered.category}>
+        {menuFiltered?.map((filtered: any, i: number) => (
+          <ItemContainer key={i} category={filtered.category}>
             {filtered.menu.map((m: Menu) => (
               <Card key={m.id} menu={m} />
             ))}
