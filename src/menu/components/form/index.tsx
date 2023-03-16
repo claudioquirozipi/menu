@@ -32,23 +32,15 @@ export default function Form(props: FormProps) {
     defaultValues: initialValue || defaultValues,
   });
   const { errors } = formState;
-  const [formData, setFormData] = useState({});
-  const [showMessage, setShowMessage] = useState(false);
 
-  console.log("formData", formData);
-  //   const handleSubmit = () => {};
   const getFormErrorMessage = (name: MenuType) => {
     return (
       errors[name] && <small className="p-error">{errors[name]?.message}</small>
     );
   };
   const onSubmit = async (formValue: any) => {
-    console.log("hola");
     console.log("formValue", formValue);
     createOrEditOnSubmit(formValue);
-    // setFormData(data);
-    // setShowMessage(true);
-
     reset();
   };
 
@@ -64,23 +56,10 @@ export default function Form(props: FormProps) {
     setCategories(newData);
   }
 
-  console.log("categories", categories);
-  const citySelectItems = [
-    { label: "New York", value: "NY" },
-    { label: "Rome", value: "RM" },
-    { label: "London", value: "LDN" },
-    { label: "Istanbul", value: "IST" },
-    { label: "Paris", value: "PRS" },
-  ];
-
   useEffect(() => {
     getCategories();
   }, []);
-  const ola = () => {
-    console.log("ola");
-    // control.register("images", { onChange: () => "ola" });
-    // setValue("images", ["hola"]);
-  };
+
   const images = watch("images");
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
@@ -153,9 +132,12 @@ export default function Form(props: FormProps) {
             <label htmlFor="country">Categoría</label>
           </span>
         </div>
-
-        <Button type="submit" label="Submit" className="mt-2" />
       </div>
+      <Button
+        type="submit"
+        label="Editar"
+        className={`mt-2 ${styles.button}`}
+      />
     </form>
   );
 }

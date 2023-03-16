@@ -8,6 +8,8 @@
 .image {
   width: 40px;
   border-radius: 50%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .name {

@@ -2,6 +2,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Layout from "../../src/shared/components/layout";
 import { useState, useEffect, ChangeEvent } from "react";
 import { v4 as uuid } from "uuid";
+import Image from "next/image";
 
 export default function Images() {
   const [images, setImagenes] = useState<any>([]);
@@ -56,7 +57,7 @@ export default function Images() {
         {images.map((image: any) => (
           <div key={image.id}>
             <h1>imagen</h1>
-            <img
+            <Image
               style={{ width: "200px" }}
               src={`https://hxuqbrrlfvuyhhdldwme.supabase.co/storage/v1/object/public/menus/${image.name}`}
               alt=""

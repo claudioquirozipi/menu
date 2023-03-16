@@ -1,12 +1,17 @@
 import { ChangeEvent, useState, useEffect } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { ImageFormProps } from "./interfaces/props";
 import { v4 as uuid } from "uuid";
-import { Dialog } from "primereact/dialog";
+import Image from "next/image";
+
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
 import { Button } from "primereact/button";
-import styles from "./css/styles.module.css";
-import { Footer } from "./footer";
+import { Dialog } from "primereact/dialog";
+import { Badge } from "primereact/badge";
+
+import { ImageFormProps } from "./interface";
+import styles from "./styles.module.css";
 import { ImageComponent } from "./image";
+import { Footer } from "./footer";
 
 export default function ImageForm(props: ImageFormProps) {
   const { images = [], setValue } = props;
@@ -43,6 +48,12 @@ export default function ImageForm(props: ImageFormProps) {
     setVisible(false);
   }
 
+  function removeToArrayImage(image: string) {
+    const newImage = images.filter((img) => image !== img);
+    setValue("images", newImage);
+    // setVisible(false);
+  }
+
   async function deleteImage(imageName: string) {
     const { error } = await supabase.storage.from("menus").remove([imageName]);
 
@@ -58,49 +69,53 @@ export default function ImageForm(props: ImageFormProps) {
   }, []);
 
   return (
-    <div>
-      <h1>image form</h1>
-
-      <div>
-        {images.map((img, i: number) => (
-          <img
-            key={i}
+    <div className={styles.imagesContainer}>
+      {images.map((img, i: number) => (
+        <div
+          key={i}
+          className={`${styles.imageItem} ${i === 0 && styles.firstImageItem}`}
+        >
+          <Image
             src={`${imgUrl}/${img}`}
             alt="img"
-            style={{ width: "50px" }}
+            className={styles.img}
+            width={250}
+            height={250}
           />
-        ))}
-
-        <Button
-          label="Show"
-          icon="pi pi-external-link"
-          onClick={() => setVisible(true)}
-        />
-        <Dialog
-          header="Header"
-          visible={visible}
-          style={{ width: "50vw" }}
-          onHide={() => setVisible(false)}
-          footer={() => (
-            <Footer
-              uploadImage={uploadImage}
-              addToArrayImage={addToArrayImage}
+          <Badge
+            value="X"
+            className={styles.badge}
+            onClick={() => removeToArrayImage(img)}
+          ></Badge>
+        </div>
+      ))}
+      <Button
+        className={styles.addImageButton}
+        label="Agregar imagen"
+        icon="pi pi-external-link"
+        onClick={() => setVisible(true)}
+      />
+      <Dialog
+        header="Header"
+        visible={visible}
+        style={{ width: "50vw" }}
+        onHide={() => setVisible(false)}
+        footer={() => (
+          <Footer uploadImage={uploadImage} addToArrayImage={addToArrayImage} />
+        )}
+      >
+        <div className={styles.imagesModalContainer}>
+          {image.map((img: any) => (
+            <ImageComponent
+              key={img.id}
+              img={img}
+              deleteImage={deleteImage}
+              imgSelected={imgSelected}
+              setImgSelected={setImgSelected}
             />
-          )}
-        >
-          <div className={styles.imagesContainer}>
-            {image.map((img: any) => (
-              <ImageComponent
-                key={img.id}
-                img={img}
-                deleteImage={deleteImage}
-                imgSelected={imgSelected}
-                setImgSelected={setImgSelected}
-              />
-            ))}
-          </div>
-        </Dialog>
-      </div>
+          ))}
+        </div>
+      </Dialog>
     </div>
   );
 }

@@ -1,11 +1,14 @@
 .container {
-  border: 1px solid red;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 6fr 4fr;
+  gap: 5rem;
 }
 
 .form {
   display: grid;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+.button {
+  grid-column: 1/-1;
 }
