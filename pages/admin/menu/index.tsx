@@ -59,6 +59,8 @@ export default function MenuPage() {
           body={(rowData) => (
             <Button
               label="Editar"
+              severity="warning"
+              icon={"pi pi-file-edit"}
               onClick={() => router.push(`/admin/menu/edit/${rowData.id}`)}
             />
           )}
@@ -66,7 +68,11 @@ export default function MenuPage() {
         ></Column>
         <Column
           body={(rowData) => (
-            <Button label="Borrar" onClick={() => deleteMenu(rowData.id)} />
+            <Button
+              label="Borrar"
+              severity="danger"
+              onClick={() => deleteMenu(rowData.id)}
+            />
           )}
           header="Borrar"
         ></Column>

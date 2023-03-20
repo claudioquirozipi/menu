@@ -14,6 +14,7 @@ import { Category } from "../../../src/category/interfaces/category";
 import Layout from "../../../src/shared/components/layout";
 import EditCategory from "../../../src/category/components/edit-category";
 import { EditCategoryDTO } from "../../../src/category/interfaces/edit-category-dto";
+// import { getCategories } from "../../../src/category/hooks/getCategories";
 
 export default function CategoryPage() {
   const supabase = useSupabaseClient();

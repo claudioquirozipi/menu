@@ -32,6 +32,8 @@ export default function EditCategory(props: EditCategoryProps) {
       </OverlayPanel>
       <Button
         label="Editar"
+        icon={"pi pi-file-edit"}
+        severity="warning"
         onClick={(e: MouseEvent<HTMLButtonElement>) => toggle(e)}
       />
     </>
