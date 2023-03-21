@@ -5,7 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
-import { classNames } from "primereact/utils";
+// import { classNames } from "primereact/utils";
 import { Button } from "primereact/button";
 
 import { CreateMenuDTO } from "../../interfaces/create-menu-dto";
@@ -76,13 +76,13 @@ export default function Form(props: FormProps) {
                   id={field.name}
                   {...field}
                   autoFocus
-                  className={classNames({ "p-invalid": fieldState.invalid })}
+                  // className={classNames({ "p-invalid": fieldState.invalid })}
                 />
               )}
             />
             <label
               htmlFor="name"
-              className={classNames({ "p-error": errors.name })}
+              // className={classNames({ "p-error": errors.name })}
             >
               Name*
             </label>
@@ -96,18 +96,18 @@ export default function Form(props: FormProps) {
               control={control}
               rules={{ required: "price is required." }}
               render={({ field, fieldState }) => (
-                <InputText
+                <input
                   type={"number"}
                   id={field.name}
                   {...field}
                   autoFocus
-                  className={classNames({ "p-invalid": fieldState.invalid })}
+                  // className={classNames({ "p-invalid": fieldState.invalid })}
                 />
               )}
             />
             <label
               htmlFor="price"
-              className={classNames({ "p-error": errors.price })}
+              // className={classNames({ "p-error": errors.price })}
             >
               price*
             </label>
