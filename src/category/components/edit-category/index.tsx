@@ -27,7 +27,7 @@ export default function EditCategory(props: EditCategoryProps) {
             />
             <label htmlFor="Category">Categoría</label>
           </span>
-          <Button label="Crear" onClick={handleEdit} />
+          <Button label="Editar" onClick={handleEdit} />
         </form>
       </OverlayPanel>
       <Button

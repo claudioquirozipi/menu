@@ -38,6 +38,7 @@ export default function CategoryPage() {
         rowsPerPageOptions={[5, 10, 25]}
         responsiveLayout="scroll"
       >
+        <Column field="id" header="Id" sortable></Column>
         <Column field="name" header="Categoría" sortable></Column>
         <Column
           body={(rowData) => (
@@ -62,16 +63,28 @@ export default function CategoryPage() {
   }
 
   async function createCategory(createCategoryDTO: CreateCategoryDTO) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("category")
       .insert([createCategoryDTO]);
-    console.log("data create", data);
     if (!error) {
       getCategories();
+      toast.current.show({
+        severity: "success",
+        summary: "Creada",
+        detail: "Se creó la Categoría con éxito",
+        life: 3000,
+      });
+    } else {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Ocurrió un error",
+        life: 3000,
+      });
     }
   }
   async function editCategory(editCategoryDTO: EditCategoryDTO) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("category")
       .update({ name: editCategoryDTO.name })
       .eq("id", editCategoryDTO.id);
@@ -80,18 +93,30 @@ export default function CategoryPage() {
         c.id === editCategoryDTO.id ? editCategoryDTO : c
       );
       setCategory(categoriesList);
+      toast.current.show({
+        severity: "success",
+        summary: "Editada",
+        detail: "Se editó la Categoría con éxito",
+        life: 3000,
+      });
+    } else {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Ocurrió un error",
+        life: 3000,
+      });
     }
-    console.log("se editó", data);
   }
 
   async function deleteCategory(id: string) {
     const confirm = () => {
       confirmDialog({
-        message: "Are you sure you want to proceed?",
-        header: "Confirmation",
+        message: `¿Deseas borrar la categoría con el id: ${id} ?`,
+        header: "Confirma",
         icon: "pi pi-exclamation-triangle",
         accept: async () => {
-          const { data, error } = await supabase
+          const { error } = await supabase
             .from("category")
             .delete()
             .eq("id", id);
@@ -100,15 +125,16 @@ export default function CategoryPage() {
             setCategory(newCategory);
             toast.current.show({
               severity: "success",
-              summary: "Rejected",
-              detail: "You have rejected",
+              summary: "Borrada",
+              detail: `Se borró la categoría con el id: ${id}`,
               life: 3000,
             });
           } else {
             toast.current.show({
               severity: "error",
-              summary: "Rejected",
-              detail: "You have rejected",
+              summary: "Error",
+              detail:
+                "Ocurrió un error, no puedes borrar una categoría que se esté usando",
               life: 3000,
             });
           }
@@ -116,8 +142,8 @@ export default function CategoryPage() {
         reject: () => {
           toast.current.show({
             severity: "warn",
-            summary: "Rejected",
-            detail: "You have rejected",
+            summary: "Canselado",
+            detail: "Se canseló la operación de borrado",
             life: 3000,
           });
         },
