@@ -6,7 +6,7 @@ export interface Menu {
   name: string;
   price: number;
   images: string[];
-  category: Category[];
+  category: Category;
 }
 
 export type MenuType = "name" | "price" | "images" | "category";

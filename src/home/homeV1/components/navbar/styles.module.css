@@ -1,0 +1,25 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+.socialMediaContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logo {
+  width: 100px;
+  /* height: 60px; */
+  object-fit: contain;
+  object-position: center;
+  /* border: 1px solid red; */
+  grid-column: 1/-1;
+}
+.img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  object-position: center;
+}

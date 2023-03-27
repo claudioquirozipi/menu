@@ -18,7 +18,7 @@ import { EditCategoryDTO } from "../../../src/category/interfaces/edit-category-
 
 export default function CategoryPage() {
   const supabase = useSupabaseClient();
-  const [category, setCategory] = useState<Category[]>([]);
+  const [category, setCategory] = useState<any>([]);
   const toast: any = useRef(null);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function CategoryPage() {
       .update({ name: editCategoryDTO.name })
       .eq("id", editCategoryDTO.id);
     if (!error) {
-      const categoriesList = category.map((c) =>
+      const categoriesList = category.map((c: any) =>
         c.id === editCategoryDTO.id ? editCategoryDTO : c
       );
       setCategory(categoriesList);
@@ -121,7 +121,7 @@ export default function CategoryPage() {
             .delete()
             .eq("id", id);
           if (!error) {
-            const newCategory = category.filter((c) => c.id !== id);
+            const newCategory = category.filter((c: any) => c.id !== id);
             setCategory(newCategory);
             toast.current.show({
               severity: "success",

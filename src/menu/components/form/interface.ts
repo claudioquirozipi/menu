@@ -11,5 +11,5 @@ export interface FormValue {
   name: string;
   price: number;
   images: string[];
-  category: Category[];
+  category: any;
 }

@@ -21,8 +21,7 @@ export default function Layout(props: LayoutProps) {
     // if (mode === "admin" && !session) router.push("/auth/login");
   }, [session]);
 
-  if (mode === "lessAuth")
-    return <div className={styles.client_container}> {children}</div>;
+  if (mode === "lessAuth") return <> {children}</>;
   if (mode === "auth")
     return <div className={styles.login_container}> {children}</div>;
   return (

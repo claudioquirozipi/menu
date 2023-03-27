@@ -9,10 +9,14 @@ import Layout from "../src/shared/components/layout";
 import { Menu } from "../src/menu/interfaces/menu";
 import { Card } from "../src/menu/components/card";
 import { ItemContainer } from "../src/menu/components/itemContainer";
+import HomeV1 from "../src/home/homeV1";
+import { useMenuList } from "../src/menu/hooks/useMenuList";
+import Navbar from "../src/home/homeV1/components/navbar";
 
 export default function Home() {
   const supabase = useSupabaseClient();
   const [menuFiltered, setMenuFiltered] = useState<any>([]);
+  const { menu, menuError, menuLoading } = useMenuList();
 
   const initialize = async () => {
     const { data, error } = await supabase.from("menu").select("*");
@@ -38,7 +42,7 @@ export default function Home() {
         menu: dataFiltered[property],
       });
     }
-    console.log("arrayFiltered", arrayFiltered);
+    // console.log("arrayFiltered", arrayFiltered);s
     setMenuFiltered(arrayFiltered);
   };
 
@@ -55,13 +59,40 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        {menuFiltered?.map((filtered: any, i: number) => (
+        <div
+          style={{
+            backgroundColor: "#fff",
+          }}
+        >
+          <h1
+            style={{
+              margin: 0,
+              padding: "0.5rem",
+              backgroundColor: "#6ebdaa",
+              width: "100%",
+              fontSize: "1rem",
+              textAlign: "center",
+            }}
+          >
+            Tienda online
+          </h1>
+        </div>
+        <div
+          style={{
+            padding: "1rem",
+            backgroundColor: "#FFF",
+          }}
+        >
+          <Navbar />
+          <HomeV1 menu={menu} />
+          {/* {menuFiltered?.map((filtered: any, i: number) => (
           <ItemContainer key={i} category={filtered.category}>
-            {filtered.menu.map((m: Menu) => (
-              <Card key={m.id} menu={m} />
+          {filtered.menu.map((m: Menu) => (
+            <Card key={m.id} menu={m} />
             ))}
-          </ItemContainer>
-        ))}
+            </ItemContainer>
+          ))} */}
+        </div>
       </Layout>
     </>
   );

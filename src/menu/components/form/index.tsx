@@ -35,7 +35,9 @@ export default function Form(props: FormProps) {
 
   const getFormErrorMessage = (name: MenuType) => {
     return (
-      errors[name] && <small className="p-error">{errors[name]?.message}</small>
+      errors[name] && (
+        <small className="p-error">{"errors[name]?.message"}</small>
+      )
     );
   };
   const onSubmit = async (formValue: any) => {
