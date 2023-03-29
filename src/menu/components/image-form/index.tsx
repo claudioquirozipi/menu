@@ -89,12 +89,15 @@ export default function ImageForm(props: ImageFormProps) {
           ></Badge>
         </div>
       ))}
-      <Button
+      <div
         className={styles.addImageButton}
-        label="Agregar imagen"
-        icon="pi pi-external-link"
+        style={{ background: "red", height: "2rem", width: "10rem" }}
+        // label="Agregar imagen"
+        // icon="pi pi-external-link"
         onClick={() => setVisible(true)}
-      />
+      >
+        Agregar imagen
+      </div>
       <Dialog
         header="Header"
         visible={visible}
