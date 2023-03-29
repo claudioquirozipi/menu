@@ -9,6 +9,7 @@
 }
 
 .image {
+  background-color: #fff;
   border-radius: 20% 30% 100% 30%;
   position: absolute;
   top: 0;

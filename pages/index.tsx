@@ -12,6 +12,7 @@ import { ItemContainer } from "../src/menu/components/itemContainer";
 import HomeV1 from "../src/home/homeV1";
 import { useMenuList } from "../src/menu/hooks/useMenuList";
 import Navbar from "../src/home/homeV1/components/navbar";
+import WhatsappButton from "../src/home/homeV1/components/whatsappButton";
 
 export default function Home() {
   const supabase = useSupabaseClient();
@@ -64,36 +65,23 @@ export default function Home() {
             backgroundColor: "#fff",
           }}
         >
-          <h1
+          <Navbar />
+          <div
             style={{
-              margin: 0,
-              padding: "0.5rem",
-              backgroundColor: "#6ebdaa",
-              width: "100%",
-              fontSize: "1rem",
-              textAlign: "center",
+              padding: "1rem",
             }}
           >
-            Tienda online
-          </h1>
+            <HomeV1 menu={menu} />
+            {/* {menuFiltered?.map((filtered: any, i: number) => (
+            <ItemContainer key={i} category={filtered.category}>
+            {filtered.menu.map((m: Menu) => (
+              <Card key={m.id} menu={m} />
+              ))}
+              </ItemContainer>
+            ))} */}
+          </div>
         </div>
-        <div
-          style={{
-            padding: "1rem",
-            backgroundColor: "#FFF",
-          }}
-        >
-          <Navbar />
-          <HomeV1 menu={menu} />
-          {/* {menuFiltered?.map((filtered: any, i: number) => (
-          <ItemContainer key={i} category={filtered.category}>
-          {filtered.menu.map((m: Menu) => (
-            <Card key={m.id} menu={m} />
-            ))}
-            </ItemContainer>
-          ))} */}
-          {/* comentario */}
-        </div>
+        <WhatsappButton />
       </Layout>
     </>
   );
