@@ -10,7 +10,8 @@ import { InputText } from "primereact/inputtext";
 
 export default function EditCategory(props: EditCategoryProps) {
   const { category, onClick } = props;
-  const [value, setValue] = useState(category.name);
+  const [name, setName] = useState(category.name);
+  const [order, setOrder] = useState<number>(category.order);
   const op: any = useRef(null);
 
   return (
@@ -20,12 +21,23 @@ export default function EditCategory(props: EditCategoryProps) {
           <span className="p-float-label">
             <InputText
               id="Category"
-              value={value}
+              value={name}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setValue(e.target.value)
+                setName(e.target.value)
               }
             />
             <label htmlFor="Category">Categoría</label>
+          </span>
+          <span className="p-float-label">
+            <InputText
+              id="Order"
+              type="number"
+              value={order.toString()}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setOrder(Number(e.target.value))
+              }
+            />
+            <label htmlFor="Order">Order</label>
           </span>
           <Button label="Editar" onClick={handleEdit} />
         </form>
@@ -45,7 +57,7 @@ export default function EditCategory(props: EditCategoryProps) {
 
   function handleEdit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    const categoryEdited = { ...category, name: value };
+    const categoryEdited = { ...category, name, order };
     onClick(categoryEdited);
     op?.current?.toggle(e);
   }

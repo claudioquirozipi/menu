@@ -25,7 +25,7 @@ const defaultValues: CreateMenuDTO = {
 };
 
 export default function Form(props: FormProps) {
-  const { initialValue, createOrEditOnSubmit } = props;
+  const { initialValue, createOrEditOnSubmit, type } = props;
   const [categories, setCategories] = useState<SelectItemOptionsType[]>([]);
   const supabase = useSupabaseClient();
   const { control, formState, handleSubmit, reset, setValue, watch } = useForm({
@@ -137,7 +137,7 @@ export default function Form(props: FormProps) {
       </div>
       <Button
         type="submit"
-        label="Editar"
+        label={type === "create" ? "Agregar" : "Editar"}
         className={`mt-2 ${styles.button}`}
       />
     </form>

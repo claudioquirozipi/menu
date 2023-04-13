@@ -1,13 +1,11 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-import Layout from "../../../../../src/shared/components/layout";
-import Form from "../../../../../src/menu/components/form";
-import { Menu } from "../../../../../src/menu/interfaces/menu";
-import { EditMenuDTO } from "../../../../../src/menu/interfaces/edit-menu-dto";
 import { FormValue } from "../../../../../src/menu/components/form/interface";
+import Layout from "../../../../../src/shared/components/layout";
+import { Menu } from "../../../../../src/menu/interfaces/menu";
+import Form from "../../../../../src/menu/components/form";
 
 export default function EditarMenu() {
   const supabase = useSupabaseClient();
@@ -23,7 +21,11 @@ export default function EditarMenu() {
     <Layout>
       <h1>Editar menu {id}</h1>
       {initialValue ? (
-        <Form initialValue={initialValue} createOrEditOnSubmit={editOnSubmit} />
+        <Form
+          initialValue={initialValue}
+          createOrEditOnSubmit={editOnSubmit}
+          type="edit"
+        />
       ) : (
         <h1>Cargando ...</h1>
       )}
@@ -40,6 +42,7 @@ export default function EditarMenu() {
         category: formValue.category,
       })
       .eq("id", formValue.id);
+    if (data) router.push("/admin/menu");
   }
   async function initialize(id: string) {
     const { data, error } = await supabase

@@ -34,4 +34,5 @@
 }
 .addImageButton {
   grid-column: 1/-1;
+  height: 40px;
 }

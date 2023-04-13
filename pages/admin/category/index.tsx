@@ -40,6 +40,7 @@ export default function CategoryPage() {
       >
         <Column field="id" header="Id" sortable></Column>
         <Column field="name" header="Categoría" sortable></Column>
+        <Column field="order" header="Orden" sortable></Column>
         <Column
           body={(rowData) => (
             <EditCategory category={rowData} onClick={editCategory} />
@@ -86,7 +87,7 @@ export default function CategoryPage() {
   async function editCategory(editCategoryDTO: EditCategoryDTO) {
     const { error } = await supabase
       .from("category")
-      .update({ name: editCategoryDTO.name })
+      .update({ name: editCategoryDTO.name, order: editCategoryDTO.order })
       .eq("id", editCategoryDTO.id);
     if (!error) {
       const categoriesList = category.map((c: any) =>

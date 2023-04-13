@@ -4,6 +4,7 @@ import { EditMenuDTO } from "../../interfaces/edit-menu-dto";
 export interface FormProps {
   initialValue?: EditMenuDTO;
   createOrEditOnSubmit: (formValue: FormValue) => Promise<void>;
+  type: "create" | "edit";
 }
 
 export interface FormValue {

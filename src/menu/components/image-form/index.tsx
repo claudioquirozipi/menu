@@ -15,7 +15,7 @@ import { Footer } from "./footer";
 
 export default function ImageForm(props: ImageFormProps) {
   const { images = [], setValue } = props;
-  const [image, setImage] = useState<any>([]);
+  const [image = [], setImage] = useState<any>([]);
   const supabase = useSupabaseClient();
   const [visible, setVisible] = useState(false);
   const [imgSelected, setImgSelected] = useState("");
@@ -23,6 +23,8 @@ export default function ImageForm(props: ImageFormProps) {
 
   const getImages = async () => {
     const { data, error } = await supabase.storage.from("menus").list();
+    console.log("error", error);
+    console.log("data", data);
     if (data?.length) setImage(data);
   };
 
@@ -70,7 +72,7 @@ export default function ImageForm(props: ImageFormProps) {
 
   return (
     <div className={styles.imagesContainer}>
-      {images.map((img, i: number) => (
+      {images?.map((img, i: number) => (
         <div
           key={i}
           className={`${styles.imageItem} ${i === 0 && styles.firstImageItem}`}
@@ -89,15 +91,13 @@ export default function ImageForm(props: ImageFormProps) {
           ></Badge>
         </div>
       ))}
-      <div
+      <Button
         className={styles.addImageButton}
-        style={{ background: "red", height: "2rem", width: "10rem" }}
-        // label="Agregar imagen"
-        // icon="pi pi-external-link"
+        label="Agregar imagen"
+        icon="pi pi-external-link"
         onClick={() => setVisible(true)}
-      >
-        Agregar imagen
-      </div>
+        type="button"
+      />
       <Dialog
         header="Header"
         visible={visible}
@@ -108,15 +108,18 @@ export default function ImageForm(props: ImageFormProps) {
         )}
       >
         <div className={styles.imagesModalContainer}>
-          {image.map((img: any) => (
-            <ImageComponent
-              key={img.id}
-              img={img}
-              deleteImage={deleteImage}
-              imgSelected={imgSelected}
-              setImgSelected={setImgSelected}
-            />
-          ))}
+          {image?.map((img: any) => {
+            if (img.name !== ".emptyFolderPlaceholder")
+              return (
+                <ImageComponent
+                  key={img.id}
+                  img={img}
+                  deleteImage={deleteImage}
+                  imgSelected={imgSelected}
+                  setImgSelected={setImgSelected}
+                />
+              );
+          })}
         </div>
       </Dialog>
     </div>
